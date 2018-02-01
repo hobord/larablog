@@ -51,9 +51,6 @@ class CachingContentRepositoryDecorator
         ])->flush();
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
     public function findPublic()
     {
 

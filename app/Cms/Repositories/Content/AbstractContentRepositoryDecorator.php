@@ -36,6 +36,6 @@ abstract class AbstractContentRepositoryDecorator implements ContentRepositoryIn
 
     public function findPublic()
     {
-        return $this->findPublic();
+        return $this->contentRepository->findPublic();
     }
 }

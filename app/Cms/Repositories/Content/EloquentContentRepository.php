@@ -42,6 +42,9 @@ class EloquentContentRepository implements ContentRepositoryInterface
         $content->delete();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public function findPublic()
     {
         $query = $this->model->newQuery();

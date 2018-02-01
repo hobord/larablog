@@ -22,8 +22,5 @@ interface ContentRepositoryInterface
 
     public function deleteById($id);
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
     public function findPublic();
 }
