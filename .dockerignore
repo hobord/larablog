@@ -1,0 +1,17 @@
+vendor
+node_modules
+storage/framework/cache/**
+storage/framework/sessions/**
+storage/framework/testing
+storage/framework/logs/**
+storage/framework/views/**
+storage/logs/*
+.git
+.idea
+.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+composer.lock
+yarn\.lock
+package-lock.json
