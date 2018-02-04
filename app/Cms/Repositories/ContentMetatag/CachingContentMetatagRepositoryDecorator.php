@@ -59,7 +59,7 @@ class CachingContentMetatagRepositoryDecorator
 
         $cachedValue = $this->cacheFunctionResult($taggedCache, $key, $this->getCacheTtl(),
             function() use ($content_id, $content_model) {
-            return $this->contentRepository->findByContent($content_id, $content_model);
+            return parent::findByContent($content_id, $content_model);
         });
 
         return $cachedValue;

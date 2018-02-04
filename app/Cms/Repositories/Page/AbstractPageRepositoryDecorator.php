@@ -13,25 +13,25 @@ use App\Cms\Models\Page;
 
 abstract class AbstractPageRepositoryDecorator implements PageRepositoryInterface
 {
-    protected $contentRepository;
+    protected $pageRepository;
 
-    public function __construct(PageRepositoryInterface $contentRepository)
+    public function __construct(PageRepositoryInterface $pageRepository)
     {
-        $this->contentRepository = $contentRepository;
+        $this->pageRepository = $pageRepository;
     }
 
     public function findById($id): Page
     {
-        return $this->contentRepository->findById($id);
+        return $this->pageRepository->findById($id);
     }
     public function save($content): Page
     {
-        return $this->contentRepository->save($content);
+        return $this->pageRepository->save($content);
     }
 
     public function deleteById($id)
     {
-        return $this->contentRepository->deleteById($id);
+        return $this->pageRepository->deleteById($id);
     }
 
     public function findPublic()

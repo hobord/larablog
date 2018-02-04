@@ -12,30 +12,30 @@ use App\Cms\Models\ContentMetatag;
 
 abstract class AbstractContentMetatagRepositoryDecorator implements ContentMetatagRepositoryInterface
 {
-    protected $contentRepository;
+    protected $contentMetatagRepository;
 
-    public function __construct(ContentMetatagRepositoryInterface $contentRepository)
+    public function __construct(ContentMetatagRepositoryInterface $contentMetatagRepository)
     {
-        $this->contentRepository = $contentRepository;
+        $this->contentMetatagRepository = $contentMetatagRepository;
     }
 
     public function findById($id): ContentMetatag
     {
-        return $this->contentRepository->findById($id);
+        return $this->contentMetatagRepository->findById($id);
     }
 
     public function save($content): ContentMetatag
     {
-        return $this->contentRepository->save($content);
+        return $this->contentMetatagRepository->save($content);
     }
 
     public function deleteById($id)
     {
-        return $this->contentRepository->deleteById($id);
+        return $this->contentMetatagRepository->deleteById($id);
     }
 
     public function findByContent($content_id, string $content_model)
     {
-        return $this->contentRepository->findByContent($content_id, $content_model);
+        return $this->contentMetatagRepository->findByContent($content_id, $content_model);
     }
 }

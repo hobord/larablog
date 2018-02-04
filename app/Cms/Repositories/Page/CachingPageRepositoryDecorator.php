@@ -61,8 +61,8 @@ class CachingPageRepositoryDecorator
 
         $taggedCache = $this->cacheRepository->tags(self::TAG_ALL_PUBLIC_CONTENT);
 
-        $cachedValue = $this->cacheFunctionResult($taggedCache, $key, $this->getCacheTtl(), function(){
-            return $this->contentRepository->findPublic();
+        $cachedValue = $this->cacheFunctionResult($taggedCache, $key, $this->getCacheTtl(), function() {
+            return self::findPublic();
         });
 
         return $cachedValue;
