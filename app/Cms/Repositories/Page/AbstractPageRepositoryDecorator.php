@@ -38,4 +38,9 @@ abstract class AbstractPageRepositoryDecorator implements PageRepositoryInterfac
     {
         return $this->findPublic();
     }
+
+    public function paginatedQuery($args, $fields)
+    {
+        return $this->pageRepository->paginatedQuery($args, $fields);
+    }
 }

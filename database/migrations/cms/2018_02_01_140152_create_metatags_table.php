@@ -15,8 +15,10 @@ class CreateMetatagsTable extends Migration
     {
         Schema::create('metatags', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('group');
+            $table->string('title');
             $table->string('name');
+            $table->string('group_title');
+            $table->string('group');
         });
         Schema::table('metatags', function (Blueprint $table) {
             $table->index('group');

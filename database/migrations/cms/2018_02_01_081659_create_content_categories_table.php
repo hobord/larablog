@@ -9,7 +9,7 @@ class CreateContentCategoriesTable extends Migration {
 	{
 		Schema::create('content_categories', function(Blueprint $table) {
 			$table->increments('id');
-			$table->string('categorizable_type');
+			$table->string('content_type');
 			$table->integer('category_id')->unsigned();
 			$table->integer('content_id')->unsigned();
 			$table->integer('weight')->nullable();

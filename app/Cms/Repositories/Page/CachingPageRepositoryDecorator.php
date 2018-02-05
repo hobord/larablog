@@ -67,4 +67,24 @@ class CachingPageRepositoryDecorator
 
         return $cachedValue;
     }
+
+    public function paginatedQuery($args, $fields)
+    {
+        $keys = [];
+        foreach ($args as $key => $val) {
+            $keys[] = ",".$key.":".(is_array($val))?implode(",", $val):$val;
+        }
+        $key = "ARGS:". implode(",", $keys);
+        $key .= "FIELDS:". implode(",", array_keys($fields));
+
+        $key .= 'PAGINATED_PAGES:'.md5($key);
+
+        $taggedCache = $this->cacheRepository->tags(self::TAG_ALL_PUBLIC_CONTENT); //TODO
+
+        $cachedValue = $this->cacheFunctionResult($taggedCache, $key, $this->getCacheTtl(),
+            function() use ($args, $fields) {
+            return parent::paginatedQuery($args, $fields);
+        });
+        return $cachedValue;
+    }
 }

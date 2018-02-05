@@ -32,4 +32,6 @@ interface PageRepositoryInterface
     public function deleteById($id);
 
     public function findPublic();
+
+    public function paginatedQuery($args, $fields);
 }

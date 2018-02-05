@@ -51,4 +51,50 @@ class EloquentPageRepository implements PageRepositoryInterface
         $query->where('status', '=', 'published');
         return $query->get();
     }
+
+    public function paginatedQuery($args, $fields)
+    {
+        $query = $this->model->newQuery();
+
+        foreach ($fields as $field => $keys) {
+            if ($field === 'metatags') {
+                $query->with('metatags');
+            }
+        }
+//
+//        if(isset($args['categories_id'])) {
+//
+//        }
+
+        $where = function (\Illuminate\Database\Eloquent\Builder $query) use ($args) {
+            if (isset($args['id'])) {
+                $query->where('id',$args['id']);
+            }
+            if (isset($args['title'])) {
+                $query->where('title', 'like', '%' . $args['title'] . '%');
+            }
+
+            if (isset($args['categories_id'])) {
+                $query->with('categories');
+                foreach ($args['categories_id'] as $id) {
+                    $query->where('category_id', '=', $id);
+//                    $query->whereMonth('categories','=', $id);
+//                    $query->whereHas('categories', function($q) use ($id) {
+//                        $q->where('id', $id);
+//                    });
+                }
+            }
+        };
+
+        $order_by = (array_key_exists('order_by', $args)) ? $args['order_by'] : 'id';
+        $order_asc = (array_key_exists('order_asc', $args)) ? $args['order_asc'] : false;
+
+        $limit = (array_key_exists('limit', $args)) ? $args['limit'] : 15;
+        $page = (array_key_exists('page', $args)) ? $args['page'] : 0;
+
+        $query = $query->where($where)
+            ->orderBy($order_by, ($order_asc)?'asc':'desc');
+
+        return $query->paginate($limit, ['*'], 'page', $page);
+    }
 }

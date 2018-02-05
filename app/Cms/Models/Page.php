@@ -36,8 +36,13 @@ class Page extends Model
     }
 
     public function categories()
+    {//todo
+        return $this->morphToMany(Category::class, 'content');
+    }
+
+    public function metatags()
     {
-        return $this->morphToMany(Category::class, 'category');
+        return $this->morphMany(ContentMetatag::class, 'content');
     }
 
 }

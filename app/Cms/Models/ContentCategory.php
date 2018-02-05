@@ -10,7 +10,7 @@ class ContentCategory extends Model
     protected $table = 'content_categories';
     public $timestamps = false;
     protected $fillable = [
-        'categorizable_type',
+        'content_type',
         'category_id',
         'content_id',
         'weight'

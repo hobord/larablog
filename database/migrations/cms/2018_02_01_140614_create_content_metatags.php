@@ -17,8 +17,9 @@ class CreateContentMetatags extends Migration
             $table->increments('id');
             $table->unsignedInteger('metatag_id');
             $table->unsignedInteger('content_id');
-            $table->string('content_model');
+            $table->string('content_type');
             $table->string('value');
+            $table->timestamps();
         });
 
         Schema::table('content_metatags', function (Blueprint $table) {
