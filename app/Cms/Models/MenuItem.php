@@ -18,17 +18,17 @@ class MenuItem extends Model
 
     public function menu()
     {
-        return $this->belongsTo('Menu', 'menu_id');
+        return $this->belongsTo(Menu::class, 'menu_id');
     }
 
     public function parent()
     {
-        return $this->hasOne('MenuItem', 'parent_id');
+        return $this->hasOne(MenuItem::class, 'parent_id');
     }
 
     public function children()
     {
-        return $this->hasMany('MenuItem', 'parent_id');
+        return $this->hasMany(MenuItem::class, 'parent_id');
     }
 
 }

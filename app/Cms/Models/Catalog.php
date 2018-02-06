@@ -20,7 +20,7 @@ class Catalog extends Model
 
     public function categories()
     {
-        return $this->hasMany('Category', 'catalog_id');
+        return $this->hasMany(Category::class, 'catalog_id');
     }
 
 }

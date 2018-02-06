@@ -9,11 +9,13 @@
 namespace App\Cms\Repositories\Page;
 
 use App\Cms\Models\Page;
-
+use \Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 
 class EloquentPageRepository implements PageRepositoryInterface
 {
+    /** @var Page $model */
     private $model;
 
     public function __construct(Page $model)
@@ -30,12 +32,20 @@ class EloquentPageRepository implements PageRepositoryInterface
         return $this->model->find($id);
     }
 
+    /**
+     * @param Page $content
+     * @return Page
+     */
     public function save($content): Page
     {
        $content->save();
        return $content;
     }
 
+    /**
+     * @param $id
+     * @throws \Exception
+     */
     public function deleteById($id)
     {
         $content = $this->findById($id);
@@ -52,6 +62,11 @@ class EloquentPageRepository implements PageRepositoryInterface
         return $query->get();
     }
 
+    /**
+     * @param $args
+     * @param $fields
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function paginatedQuery($args, $fields)
     {
         $query = $this->model->newQuery();
@@ -61,22 +76,23 @@ class EloquentPageRepository implements PageRepositoryInterface
                 $query->with('metatags');
             }
         }
-//
-//        if(isset($args['categories_id'])) {
-//
-//        }
 
-        $where = function (\Illuminate\Database\Eloquent\Builder $query) use ($args) {
+        $where = function (Builder $query) use ($args) {
             if (isset($args['id'])) {
                 $query->where('id',$args['id']);
             }
+
             if (isset($args['title'])) {
                 $query->where('title', 'like', '%' . $args['title'] . '%');
             }
 
+            if (isset($args['editor_id'])) {
+                $query->where('editor_id', '=', $args['editor_id']);
+            }
+
             if (isset($args['categories_id'])) {
                 foreach ($args['categories_id'] as $tag_id) {
-                    $query->whereHas('categories', function($q) use ($tag_id) {
+                    $query->whereHas('categories', function(Builder $q) use ($tag_id) {
                         $q->where('category_id', $tag_id);
                     });
                 }
@@ -84,7 +100,7 @@ class EloquentPageRepository implements PageRepositoryInterface
 
             if (isset($args['tags_id'])) {
                 $tags = $args['tags_id'];
-                $query->whereHas('categories', function($q) use ($tags) {
+                $query->whereHas('categories', function(Builder $q) use ($tags) {
                     $q->whereIn('category_id', $tags);
                 });
             }

@@ -19,7 +19,7 @@ class Menu extends Model
 
     public function menu_items()
     {
-        return $this->hasMany('MenuItem', 'parent_id');
+        return $this->hasMany(MenuItem::class, 'parent_id');
     }
 
 }

@@ -36,7 +36,7 @@ class Page extends Model
     }
 
     public function categories()
-    {//todo
+    {
         return $this->morphToMany(Category::class, 'content', 'content_categories', 'content_id');
     }
 
