@@ -71,12 +71,6 @@ class EloquentPageRepository implements PageRepositoryInterface
     {
         $query = $this->model->newQuery();
 
-        foreach ($fields as $field => $keys) {
-            if ($field === 'metatags') {
-                $query->with('metatags');
-            }
-        }
-
         $where = function (Builder $query) use ($args) {
             if (isset($args['id'])) {
                 $query->where('id',$args['id']);
