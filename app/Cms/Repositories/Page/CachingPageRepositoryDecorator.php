@@ -70,7 +70,7 @@ class CachingPageRepositoryDecorator
 
     public function paginatedQuery($args, $fields)
     {
-        $key = 'PAGINATED_PAGES:'. md5(json_encode($args) . json_encode($fields));
+        $key = 'PAGINATED_PAGES:'. md5(json_encode($args)); // . json_encode($fields));
 
         $taggedCache = $this->cacheRepository->tags(self::TAG_ALL_PUBLIC_CONTENT); //TODO
 
