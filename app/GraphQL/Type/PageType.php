@@ -28,6 +28,10 @@ class PageType extends BaseType
                 'type' => Type::string(),
                 'description' => "The page's body"
             ],
+            'categories' => [
+                'type' => Type::listOf(GraphQL::type('CategoryType')),
+                'description' => 'The user posts',
+            ],
             'metatags' => [
                 'type' => Type::listOf(GraphQL::type('ContentMetatagType')),
                 'description' => 'The user posts',

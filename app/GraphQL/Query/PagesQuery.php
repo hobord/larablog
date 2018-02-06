@@ -35,8 +35,9 @@ class PagesQuery extends Query
     {
         return [
             'id' => ['name' => 'id', 'type' => Type::ID()],
-            'categories_id' => ['name' => 'categories_id', 'type' => Type::listOf(Type::ID())],
-            'title' => ['name' => 'title', 'type' => Type::string()],
+            'categories_id' => ['name' => 'categories_id', 'type' => Type::listOf(Type::ID())], // And where
+            'tags_id' => ['name' => 'tags_id', 'type' => Type::listOf(Type::ID())], // Where in
+            'title' => ['name' => 'title', 'type' => Type::string()], // Like search
             'editor' => ['name' => 'editor', 'type' => Type::string()],
             'limit' => ['name' => 'limit', 'type' => Type::int()],
             'page' => ['name' => 'page', 'type' => Type::int()],

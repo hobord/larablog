@@ -23,22 +23,17 @@ class Category extends Model
 
     public function catalog()
     {
-        return $this->belongsTo('Catalog', 'catalog_id');
+        return $this->belongsTo(Catalog::class, 'catalog_id');
     }
 
     public function parent()
     {
-        return $this->hasOne('Category', 'parent_id');
+        return $this->hasOne(Category::class, 'parent_id');
     }
 
     public function children()
     {
-        return $this->hasMany('Category', 'parent_id');
-    }
-
-    public function contents()
-    {
-        return $this->morphedByMany('App\Cms\Content', 'category');
+        return $this->hasMany(Category::class, 'parent_id');
     }
 
 }

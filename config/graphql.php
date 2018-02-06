@@ -173,6 +173,8 @@ return [
         \App\GraphQL\Type\PageType::class,
         \App\GraphQL\Type\MetatagType::class,
         \App\GraphQL\Type\ContentMetatagType::class,
+        \App\GraphQL\Type\CatalogType::class,
+        \App\GraphQL\Type\CategoryType::class,
     ],
 
     /*

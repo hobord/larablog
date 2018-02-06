@@ -75,14 +75,18 @@ class EloquentPageRepository implements PageRepositoryInterface
             }
 
             if (isset($args['categories_id'])) {
-                $query->with('categories');
-                foreach ($args['categories_id'] as $id) {
-                    $query->where('category_id', '=', $id);
-//                    $query->whereMonth('categories','=', $id);
-//                    $query->whereHas('categories', function($q) use ($id) {
-//                        $q->where('id', $id);
-//                    });
+                foreach ($args['categories_id'] as $tag_id) {
+                    $query->whereHas('categories', function($q) use ($tag_id) {
+                        $q->where('category_id', $tag_id);
+                    });
                 }
+            }
+
+            if (isset($args['tags_id'])) {
+                $tags = $args['tags_id'];
+                $query->whereHas('categories', function($q) use ($tags) {
+                    $q->whereIn('category_id', $tags);
+                });
             }
         };
 
