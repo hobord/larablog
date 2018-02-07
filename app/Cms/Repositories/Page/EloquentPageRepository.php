@@ -53,21 +53,10 @@ class EloquentPageRepository implements PageRepositoryInterface
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public function findPublic()
-    {
-        $query = $this->model->newQuery();
-        $query->where('status', '=', 'published');
-        return $query->get();
-    }
-
-    /**
-     * @param $args
-     * @param $fields
+     * @param array $args
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function paginatedQuery($args, $fields)
+    public function paginatedQuery(array $args)
     {
         $query = $this->model->newQuery();
 

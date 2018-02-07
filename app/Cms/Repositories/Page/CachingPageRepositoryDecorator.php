@@ -17,7 +17,7 @@ class CachingPageRepositoryDecorator
 {
     use CachingRepositoryDescoratorTrait;
 
-    const TAG_ALL_PUBLIC_CONTENT = 'allPublicPage';
+    const TAG_ALL_PAGES = 'allPages';
 
     public function __construct(PageRepositoryInterface $contentRepository, Repository $cacheRepository)
     {
@@ -36,7 +36,7 @@ class CachingPageRepositoryDecorator
         $result = parent::save($content);
 
         $this->cacheRepository->tags([
-            self::TAG_ALL_PUBLIC_CONTENT
+            self::TAG_ALL_PAGES
         ])->flush();
 
         return $result;
@@ -47,36 +47,19 @@ class CachingPageRepositoryDecorator
         parent::deleteById($id);
 
         $this->cacheRepository->tags([
-            self::TAG_ALL_PUBLIC_CONTENT
+            self::TAG_ALL_PAGES
         ])->flush();
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function findPublic()
+    public function paginatedQuery(array $args)
     {
-        $key = 'ALL_PAGE';
-        $key .= ';'.md5($key);
+        $key = 'PAGINATED_PAGES:'. md5(json_encode($args));
 
-        $taggedCache = $this->cacheRepository->tags(self::TAG_ALL_PUBLIC_CONTENT);
-
-        $cachedValue = $this->cacheFunctionResult($taggedCache, $key, $this->getCacheTtl(), function() {
-            return self::findPublic();
-        });
-
-        return $cachedValue;
-    }
-
-    public function paginatedQuery($args, $fields)
-    {
-        $key = 'PAGINATED_PAGES:'. md5(json_encode($args)); // . json_encode($fields));
-
-        $taggedCache = $this->cacheRepository->tags(self::TAG_ALL_PUBLIC_CONTENT); //TODO
+        $taggedCache = $this->cacheRepository->tags(self::TAG_ALL_PAGES);
 
         $cachedValue = $this->cacheFunctionResult($taggedCache, $key, $this->getCacheTtl(),
-            function() use ($args, $fields) {
-            return parent::paginatedQuery($args, $fields);
+            function() use ($args) {
+            return parent::paginatedQuery($args);
         });
 
         return $cachedValue;

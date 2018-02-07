@@ -31,7 +31,9 @@ interface PageRepositoryInterface
      */
     public function deleteById($id);
 
-    public function findPublic();
-
-    public function paginatedQuery($args, $fields);
+    /**
+     * @param array $args
+     * @return mixed
+     */
+    public function paginatedQuery(array $args);
 }

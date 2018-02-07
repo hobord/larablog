@@ -34,13 +34,8 @@ abstract class AbstractPageRepositoryDecorator implements PageRepositoryInterfac
         return $this->pageRepository->deleteById($id);
     }
 
-    public function findPublic()
+    public function paginatedQuery(array $args)
     {
-        return $this->findPublic();
-    }
-
-    public function paginatedQuery($args, $fields)
-    {
-        return $this->pageRepository->paginatedQuery($args, $fields);
+        return $this->pageRepository->paginatedQuery($args);
     }
 }
