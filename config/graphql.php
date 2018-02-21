@@ -46,7 +46,8 @@ return [
      *     'mutation' => '\Folklore\GraphQL\GraphQLController@mutation'
      * ]
      */
-    'controllers' => \Folklore\GraphQL\GraphQLController::class.'@query',
+//    'controllers' => \Folklore\GraphQL\GraphQLController::class.'@query',
+    'controllers' => \App\Http\Controllers\GraphQLController::class.'@query',
 
     /*
      * The name of the input variable that contain variables when you query the

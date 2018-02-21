@@ -23,7 +23,7 @@ class CachingPageRepositoryDecorator
     {
         parent::__construct($contentRepository);
         $this->cacheRepository = $cacheRepository;
-        $this->cache_ttl = env('CACHE_TTL', 60);
+        $this->setCacheTtl(env('CACHE_TTL', 60));
     }
 
     public function findById($id): Page

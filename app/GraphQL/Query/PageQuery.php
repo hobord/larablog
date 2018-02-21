@@ -42,14 +42,6 @@ class PageQuery extends Query
      */
     public function resolve($root, $args, $context, ResolveInfo $info)
     {
-//        $pageRepository = new EloquentPageRepository(new Page());
-//        $cacheRepository = Cache::getFacadeRoot();
-//        $cachingPageRepository = new CachingPageRepositoryDecorator($pageRepository, $cacheRepository);
-//        if (isset($args['id'])) {
-//            $page = $cachingPageRepository->findById($args['id']);
-//            return [$page];
-//        }
-
         $fields = $info->getFieldSelection();
 
         $query = Page::query();

@@ -56,13 +56,10 @@ class PagesQuery extends Query
      */
     public function resolve($root, $args, $context, ResolveInfo $info)
     {
-        $cacheManager = Cache::getFacadeRoot();
-        $cacheRepository = $cacheManager->store();
         $eloquentPageRepository = new EloquentPageRepository(new Page());
-        $cachedPageRepository = new CachingPageRepositoryDecorator($eloquentPageRepository, $cacheRepository);
 
         $fields = $info->getFieldSelection();
 
-        return $cachedPageRepository->paginatedQuery($args, $fields);
+        return $eloquentPageRepository->paginatedQuery($args, $fields);
     }
 }
