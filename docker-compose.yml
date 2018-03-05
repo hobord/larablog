@@ -13,10 +13,10 @@ services:
       MYSQL_PASSWORD: laravel
 
   laravel:
-     image: hobord/php-fpm-laravel:dev
+     image: hobord/php-fpm-laravel:dev-7.2.2
      # restart: always
      volumes:
-       - /c/docker/larablog:/var/www/html
+       - ./:/var/www/html
      links:
        - mysql
        # - redis
@@ -32,15 +32,18 @@ services:
 #       XDEBUG_CONFIG: "remote_host=192.168.99.1"
 #       XDEBUG_SESSION_START: phpstorm-xdebug
 
-  nginx_laravel:
+  nginx:
      build:
-       context: ./
-       dockerfile: Dockerfile.nginx
-     # restart: always
+       context: './'
+       dockerfile: ./nginx/Dockerfile
      volumes:
-       - /c/docker/larablog/public:/var/www/html/public
+       - './:/var/www/html'
+     environment:
+       NGINX_LISTEN: '80'
+       FCGI_SERVER: laravel
+       FCGI_PORT: '9000'
      ports:
-       - "8080:80"
+       - '80:80'
      links:
        - laravel
      depends_on:
