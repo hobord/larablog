@@ -29,6 +29,7 @@ services:
        DB_DATABASE: laravel
        DB_USERNAME: laravel
        DB_PASSWORD: laravel
+       APP_KEY: "base64:WJEzycT7atcbZuhsc0xizPAAUcfgJiN+yEfcldA8b80="
 #       XDEBUG_CONFIG: "remote_host=192.168.99.1"
 #       XDEBUG_SESSION_START: phpstorm-xdebug
 
